@@ -1,5 +1,7 @@
 package dp;
 
+import java.util.Arrays;
+
 public class MinPathSum {
 
     public static void main(String[] args) {
@@ -33,5 +35,24 @@ public class MinPathSum {
         }
 
         return dp[grid.length-1][grid[0].length-1];
+    }
+
+
+    //memoized dp
+    static int solve(int[][] grid, int i, int j, int[][] dp) {
+        if(i == 0 && j == 0) return grid[i][j];
+
+        if(dp[i][j] != -1) return dp[i][j];
+
+        if(j == 0)
+            return dp[i][j] =
+                grid[i][j]+solve(grid,i-1,j,dp);
+
+        if(i == 0)
+            return dp[i][j] =
+                grid[i][j]+solve(grid,i,j-1,dp);
+
+        return dp[i][j] = grid[i][j] +
+                Math.min(solve(grid,i-1,j,dp),solve(grid,i,j-1,dp));
     }
 }
